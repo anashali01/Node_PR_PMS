@@ -12,8 +12,7 @@ Use these credentials to test the application:
 *Cart Will Work Only For Users*
 
 ## 🌐 Live Link
-**[View Live Demo](https://node-final-exam-five.vercel.app/)**
-*Update with your deployed URL*
+**[View Live Demo](https://node-pr-pms.vercel.app/)**
 
 ---
 
