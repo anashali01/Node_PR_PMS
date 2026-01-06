@@ -1,0 +1,146 @@
+<%- include('../partials/header.ejs') %>
+
+    <style>
+        .cart-wrapper {
+            max-width: 520px;
+            margin: 80px auto;
+        }
+
+        .neo-card {
+            width: 100%;
+            border-radius: 12px;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.06),
+                -8px -8px 20px rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .cart-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #222;
+        }
+
+        .product-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+        }
+
+        .product-thumb {
+            width: 110px;
+            height: 110px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: #f0f2f5;
+            flex-shrink: 0;
+        }
+
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .product-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #222;
+        }
+
+        .product-meta {
+            font-size: 14px;
+            color: #444;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .product-meta span {
+            display: block;
+        }
+
+        .empty-cart {
+            text-align: center;
+            color: #888;
+            padding: 20px 0;
+        }
+
+        .cart-actions {
+            margin-top: 18px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .btn-exit {
+            padding: 8px 14px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            background: #f5f7fb;
+            color: #333;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-exit:hover {
+            background: #e6eef9;
+        }
+    </style>
+
+    <div class="container">
+    <div class="cart-wrapper">
+        <div class="neo-card">
+            <div class="cart-title">Cart</div>
+
+            <% if (cartItems && cartItems.length) { %>
+
+                <% cartItems.forEach(function(item){ %>
+                    <div class="product-row" style="margin-bottom:20px;">
+                        <img 
+                            src="<%= item.image || '/assets/images/samples/300x300/sample.jpg' %>"
+                            alt="<%= item.name %>"
+                            class="product-thumb"
+                        />
+
+                        <div class="product-info">
+                            <div class="product-name">
+                                <%= item.name %>
+                            </div>
+
+                            <div class="product-meta">
+                                <span><strong>Price:</strong> $<%= item.price %></span>
+                                <span><strong>Quantity:</strong> 1</span>
+                                <span><strong>Total:</strong> $<%= item.price %></span>
+                            </div>
+
+                            <!-- REMOVE BUTTON (same route) -->
+                            <div class="cart-actions">
+                                <form action="/cart" method="POST">
+                                    <input type="hidden" name="action" value="remove">
+                                    <input type="hidden" name="productId" value="<%= item._id %>">
+                                    <button class="btn-exit" type="submit">
+                                        Remove
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+
+                <div class="cart-actions">
+                    <a href="/product-card" class="btn-exit">Exit</a>
+                </div>
+
+            <% } else { %>
+                <div class="empty-cart">No product in cart</div>
+            <% } %>
+
+        </div>
+    </div>
+</div>
+
+    <%- include('../partials/footer.ejs') %>
